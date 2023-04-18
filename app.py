@@ -3,8 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
 app = Flask(__name__)
-app.config.from_object(Config)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////path/to/database.db'
 db = SQLAlchemy(app)
+
+print(app.config['SQLALCHEMY_DATABASE_URI'])
 
 class Loan(db.Model):
     id = db.Column(db.Integer, primary_key=True)
