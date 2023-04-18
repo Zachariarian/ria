@@ -4,6 +4,38 @@ app = Flask(__name__)
 
 @app.route('/')
 
+
+class Loan:
+    def __init__(self, amount, interest_rate, term):
+        self.amount = amount
+        self.interest_rate = interest_rate
+        self.term = term
+        self.payments = []
+
+def monthly_payment(self):
+    r = self.interest_rate / 100 / 12
+    n = self.term * 12
+    return self.amount * r * (1 + r) ** n / ((1 + r) ** n - 1)
+
+def payment_schedule(self):
+    payment = self.monthly_payment()
+    balance = self.amount
+    for i in range(self.term * 12):
+        interest = balance * self.interest_rate / 100 / 12
+        principal = payment - interest
+        balance -= principal
+        self.payments.append((i+1, payment, principal, interest, balance))
+
+def print_schedule(self):
+    print("Payment schedule:")
+    print("{:<10} {:<15} {:<15} {:<15} {:<15}".format("Month", "Payment", "Principal", "Interest", "Balance"))
+    for payment in self.payments:
+        print("{:<10} {:<15.2f} {:<15.2f} {:<15.2f} {:<15.2f}".format(*payment))
+
+loan = Loan(10000, 5, 5)
+loan.payment_schedule()
+
+
 def index():
 
     return '''
@@ -93,7 +125,9 @@ def loan():
         </table>
 
     '''
-    
+ 
+loan.print_schedule()
+   
 if __name__ == '__main__':
 
     app.run()
